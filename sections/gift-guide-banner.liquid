@@ -1,0 +1,334 @@
+<div class="gift_guide_banner" style="background-color: {{ section.settings.banner_bg }};">
+  <div class="gift_guide_banner_image">
+    <div class="gift_guide_banner_image_inner">
+        {% if section.settings.banner_image_desktop != blank %}
+        <img
+            class="desktop-image"
+            src="{{ section.settings.banner_image_desktop | image_url: width: 2000 }}"
+            alt="Banner Desktop Image"
+            width="1440"
+            height="780"
+            loading="lazy"
+        >
+        {% endif %}
+        {% if section.settings.banner_image_mobile != blank %}
+        <img
+            class="mobile-image"
+            src="{{ section.settings.banner_image_mobile | image_url: width: 768 }}"
+            alt="Banner Mobile Image"
+            width="768"
+            height="500"
+            loading="lazy"
+        >
+        {% endif %}
+    </div>
+    {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="btn gift-btn gift_guide_banner_button mobile_hide">
+        <span> {{ section.settings.button_text }}</span>
+        <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
+        </svg>
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="gift_guide_banner_content">
+    {% if section.settings.banner_title != blank %}
+      <div class="gift_guide_banner_title">
+        <h2>{{ section.settings.banner_title }}</h2>
+      </div>
+    {% endif %}
+
+    {% if section.settings.banner_description != blank %}
+      <div class="gift_guide_banner_description desktop_hide">
+        {{ section.settings.banner_description }}
+      </div>
+    {% endif %}
+    {% if section.settings.banner_description_mobile != blank %}
+      <div class="gift_guide_banner_description mobile_hide">
+        {{ section.settings.banner_description_mobile }}
+      </div>
+    {% endif %}
+
+    {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="btn gift-btn gift_guide_banner_button desktop_hide">
+        <span> {{ section.settings.button_text }}</span>
+        <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
+        </svg>
+      </a>
+    {% endif %}
+  </div>
+</div>
+<div class="gift_guide_banner_bottom_description" style="background-color: {{ section.settings.banner_bottom_bg }};">
+    {% if section.settings.banner__bottom_description != blank %}
+        <div class="desktop_hide">{{ section.settings.banner__bottom_description }}</div> 
+     {% endif %}
+     {% if section.settings.banner__bottom_description_mobile != blank %}
+        <div class="mobile_hide">{{ section.settings.banner__bottom_description_mobile }}</div>
+      {% endif %}
+   
+</div>
+{% style %}
+    @media screen and (min-width:990px) {
+      .gift_guide_banner_image .desktop-image {
+        display: block;
+      }
+      .gift_guide_banner_image .mobile-image {
+        display: none;
+      }
+      .gift_guide_banner_content {
+        max-width: 600px;
+        margin-left: 67px;
+      }
+      .gift_guide_banner_description {
+          max-width: 443px;
+          width: 100%;
+      }
+      .mobile_hide, .gift_guide_banner_button.mobile_hide {
+        display:none;
+      }
+    }
+    .gift_guide_banner {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(1, 1fr);
+    }
+    .gift_guide_banner_image {
+      grid-column: 1 / -1;
+      grid-row: 1 / 2;
+      width: 100%;
+    }
+    .gift_guide_banner_image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    .gift_guide_banner_content {
+        grid-column: 1 / -1;
+        grid-row: 1 / 2;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        padding: 50px 0px;
+        color: #000000;
+        z-index: 1;
+    }
+    .gift_guide_banner_title h2 {
+        font-size: 30px;
+        line-height: 100%;
+        font-weight: 500;
+        letter-spacing: 0px;
+        margin: 0 0 24px 0;
+    }
+    .gift_guide_banner_description p {
+        margin:0px;
+    }
+    @media screen and (min-width: 990px) {
+        .gift_guide_banner_title h2 {
+            font-size: 40px;
+            margin: 0 0 24px 0;
+        }
+        .gift_guide_banner_description {
+            margin-bottom: 24px;
+        }
+    }
+    @media screen and (min-width: 1366px) {
+        .gift_guide_banner_title h2 {
+            font-size: 70px;
+            margin: 0 0 50px 0;
+        }
+        .gift_guide_banner_description {
+            margin-bottom: 24px;
+        }
+    }
+    .gift-btn {
+        position: relative;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        gap: 18px;
+        padding: 12px 20px 12px 41px;
+        background-color: {{ section.settings.button_bg }};
+        color: {{ section.settings.button_text_color }};
+        font-size: 16px;
+        line-height: 20.48px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        z-index: 1;
+    }
+    /* create animated overlay */
+    .gift-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: {{ section.settings.button_bg_hover }};
+        transition: left 0.4s ease;
+        z-index: -1;
+    }
+    /* hover animation */
+    .gift-btn:hover::before {
+        left: 0;
+    }
+    .gift-btn:hover {
+        color: {{ section.settings.button_text_hover }};
+        box-shadow: 0px 2px 4px 0px #00000033;
+    }
+    .gift_guide_banner_bottom_description {
+        padding:10px 16px;
+        text-align: center;
+        font-size: 14px;
+        line-height: 13.42px;
+        font-weight: 400;
+        color: #000000;
+        text-transform: uppercase;
+    }
+    .gift_guide_banner_bottom_description p {
+        margin: 0;
+        letter-spacing: 0px;
+    }
+    @media screen and (min-width: 990px) {
+        .gift_guide_banner_bottom_description {
+            font-size: 16px;
+        }
+    }
+    @media screen and (max-width:989px) {
+        .gift_guide_banner {
+            grid-template-rows: repeat(2, auto);
+        }
+        .gift_guide_banner_image {
+            grid-row: 2 / 3;
+        }
+        .gift_guide_banner_content {
+            grid-row: 1 / 2;
+            align-items: center;
+            text-align: center;
+            padding: 50px 16px 12px;
+        }
+        .gift_guide_banner_image .desktop-image, .desktop_hide {
+            display: none;
+        }
+        .gift_guide_banner_description.mobile_hide, .gift_guide_banner_bottom_description .mobile_hide {
+            display: block;
+        }
+        .gift_guide_banner_image {
+            position: relative;
+        }
+        .gift_guide_banner_button {
+            position: absolute;
+            left: 0;
+            bottom: 39px;
+            white-space: nowrap;
+            right: 0;
+            margin: 0 auto;
+            width: fit-content;
+        }
+    }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Gift Guide Banner",
+  "settings": [
+    {
+      "type": "color",
+      "id": "banner_bg",
+      "label": "Banner background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image_desktop",
+      "label": "Desktop Banner Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image_mobile",
+      "label": "Mobile Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Banner Title",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "richtext",
+      "id": "banner_description",
+      "label": "Banner Description",
+      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "banner_description_mobile",
+      "label": "Banner Description for Mobile",
+      "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_hover",
+      "label": "Button hover background color",
+      "default": "#FFF544"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_hover",
+      "label": "Button text hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "richtext",
+      "id": "banner__bottom_description",
+      "label": "Description",
+      "default": "<p>SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "banner__bottom_description_mobile",
+      "label": "Description for Mobile",
+      "default": "<p>SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR</p>"
+    },
+     {
+      "type": "color",
+      "id": "banner_bottom_bg",
+      "label": "Background color",
+      "default": "#F5F5F5"
+    },
+  ],
+  "presets": [
+    {
+      "name": "Gift Guide Banner"
+    }
+  ]
+}
+{% endschema %}
