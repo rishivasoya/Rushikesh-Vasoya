@@ -1,0 +1,529 @@
+<div class="product-grid-popup-section">
+  <div class="page-width">
+    {% if section.settings.Heading != blank %}
+      <div class="product-grid-title">
+        <h2>{{ section.settings.Heading }}</h2>
+      </div>
+    {% endif %}
+    <div class="grid">
+      {% for block in section.blocks %}
+        {% if block.settings.product != blank %}
+          {% assign product = all_products[block.settings.product] %}
+          <div class="grid-item grid_item_{{ forloop.index }}">
+            <div class="grid-item-image">
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                alt="{{ product.title }}"
+                loading="lazy"
+                width="433"
+                height="444"
+              >
+              <button class="open-popup" data-target="popup-{{ forloop.index }}">
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5.3457 1.04175V9.50329" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                  <path d="M1.11523 5.27246H9.57677" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- Popup -->
+{% for block in section.blocks %}
+  {% if block.settings.product != blank %}
+    {% assign product = all_products[block.settings.product] %}
+    <div id="popup-{{ forloop.index }}" class="popup-overlay">
+      <div class="popup-content">
+        <button class="close-popup">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.03723 4.9436L13.5225 13.4289" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+            <path d="M5.03723 13.4285L13.5225 4.94319" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div id="popup-inner">
+          {% render 'gift-guide-product-popup', product: product %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endfor %}
+
+{% style %}
+  .product-grid-popup-section {
+    padding: 90px 0px 50px;
+  }
+  .product-grid-title h2 {
+    font-family: 'Lustria', serif;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 120%;
+    letter-spacing: 0px;
+    color: #000000;
+    margin: 0 0 30px;
+  }
+  .product-grid-popup-section .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .grid-item {
+    position: relative;
+  }
+  .grid-item-image {
+    position: relative;
+    padding-top: 102%;
+  }
+  .grid-item-image img {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+  .open-popup {
+    position: absolute;
+    top: 18px;
+    right: 52px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .open-popup:hover {
+    background: #fff544;
+    color: #000;
+  }
+
+  @media screen and (min-width: 768px) {
+    .grid_item_1 .open-popup {
+        top: 54%;
+        right: 35%;
+    }
+    .grid_item_2 .open-popup {
+        top: 50%;
+        right: 8%;
+    }
+    .grid_item_3 .open-popup {
+        top: 18%;
+        right: 33%;
+    }
+    .grid_item_4 .open-popup {
+        top: 16%;
+        right: 23%;
+    }
+    .grid_item_5 .open-popup {
+        top: 23%;
+        right: 45%;
+    }
+    .grid_item_6 .open-popup {
+        top: 37%;
+        right: 19%;
+    }
+  }
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+  .popup-overlay.active {
+    display: flex;
+  }
+  .popup-content {
+    background: #fff;
+    padding: 36px 20px 25px 20px;
+    max-width: 311px;
+    width: 100%;
+    border-radius: 0px;
+    position: relative;
+  }
+  .close-popup {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+  }
+  .product-flex img {
+    width: 100%;
+    max-width: 120px;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+  }
+  .product-grid-image {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .image-wrapper {
+    flex-shrink: 0;
+  }
+  .product_details h4 {
+    margin: 0 0 20px;
+    font-size: 16px;
+    line-height: 120%;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    color: #000000;
+    letter-spacing: 0px;
+  }
+  .price {
+    margin-bottom: 12px;
+  }
+  .price span {
+    font-size: 16px;
+    line-height: 120%;
+    font-family: 'Lustria', serif;
+    font-weight: 400;
+    color: #000000;
+    margin: 0;
+    display: flex;
+  }
+  .desc p {
+    margin: 0;
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 110.00000000000001%;
+    letter-spacing: normal;
+    color: #000000;
+  }
+
+  @media screen and (max-width:1366px) {
+    .product-grid-popup-section {
+        padding: 50px 0px 35px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .product-grid-popup-section {
+        padding: 40px 0px 25px;
+    }
+    .product-grid-popup-section .grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap:4px;
+    }
+    .product-grid-title h2 {
+        font-size: 24px;
+        line-height: 120%;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+  }
+
+  /* Color Swatches */
+  .color-options {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .color-options label,
+  .size-options label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 130%;
+    letter-spacing: 0%;
+  }
+  .color-buttons {
+    display: flex;
+    gap: 0px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 0.5px solid #000;
+  }
+  .color-btn {
+    cursor: pointer;
+    border: none;
+    border-radius: 0px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .color-btn.active {
+    border-color: #000;
+    background: #000000;
+    color: #fff;
+  }
+  .color-swatch {
+    display: block;
+    width: 6px;
+    height: 40px;
+    border-right: 0.5px solid #000;
+    opacity: 1;
+  }
+
+  /* Size Dropdown */
+  .size-options {
+    margin-bottom: 50px;
+  }
+  .custom-dropdown {
+    position: relative;
+    width: 100%;
+  }
+  .dropdown-toggle {
+    cursor: pointer;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    border: 0.5px solid #000;
+  }
+  .dropdown-toggle span {
+    flex: 1;
+    padding: 10px 18px 10px 13px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: normal;
+    color: #000000;
+  }
+  .dropdown-toggle .arrow-icon {
+    border-left: 0.5px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 20px;
+    flex: inherit;
+    transition: transform 0.3s ease;
+  }
+  .dropdown-toggle .arrow-icon svg {
+    transition: transform 0.3s ease;
+  }
+  .custom-dropdown.open .arrow-icon svg {
+    transform: rotate(180deg);
+  }
+  .dropdown_menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 0.5px solid #000;
+    border-top: none;
+    max-height: 99px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+    z-index: 10;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  .dropdown_menu li {
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: normal;
+    text-align: center;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .dropdown_menu li:hover {
+    background: #000000;
+    color: #fff;
+  }
+  .custom-dropdown.open .dropdown_menu {
+    display: block;
+  }
+  .product-form select {
+    display: none !important;
+  }
+  .add-to-cart.gift-btn {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 12px 20px 12px 41px;
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
+    line-height: 20.48px;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    z-index: 1;
+  }
+  /* create animated overlay */
+  .add-to-cart.gift-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: #fff544;
+    transition: left 0.4s ease;
+    z-index: -1;
+  }
+  /* hover animation */
+  .add-to-cart.gift-btn:hover::before {
+    left: 0;
+  }
+  .add-to-cart.gift-btn:hover {
+    color: #000;
+  }
+  .add-to-cart {
+    border: none;
+  }
+{% endstyle %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.open-popup').forEach((btn) => {
+      btn.addEventListener('click', function () {
+        const target = document.getElementById(this.dataset.target);
+        target.classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.close-popup').forEach((btn) => {
+      btn.addEventListener('click', function () {
+        this.closest('.popup-overlay').classList.remove('active');
+      });
+    });
+
+    document.querySelectorAll('.popup-overlay').forEach((popup) => {
+      popup.addEventListener('click', (e) => {
+        if (e.target === popup) popup.classList.remove('active');
+      });
+    });
+  });
+  // Variant selection logic
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.product-popup').forEach((popup) => {
+      const variantsEl = popup.querySelector('.product-variants-json');
+      if (!variantsEl) return;
+
+      const variants = JSON.parse(variantsEl.textContent);
+      const idField = popup.querySelector('[name="id"]'); // hidden input
+      const selections = {}; // e.g. { option1: "Red", option2: "M" }
+
+      // Color swatches (ul has data-option-index like "1")
+      const colorGroup = popup.querySelector('.color-buttons');
+      if (colorGroup) {
+        const colorIndex = colorGroup.dataset.optionIndex; // "1", "2" or "3"
+        colorGroup.querySelectorAll('.color-btn').forEach((li) => {
+          li.addEventListener('click', () => {
+            colorGroup.querySelectorAll('.color-btn').forEach((x) => x.classList.remove('active'));
+            li.classList.add('active');
+            selections['option' + colorIndex] = li.dataset.value;
+            updateVariant();
+          });
+        });
+      }
+
+      // Size dropdown (wrapper has data-option-index)
+      const dd = popup.querySelector('.custom-dropdown');
+      if (dd) {
+        const sizeIndex = dd.dataset.optionIndex;
+        const toggle = dd.querySelector('.dropdown-toggle');
+        const menu = dd.querySelector('.dropdown_menu');
+
+        toggle.addEventListener('click', () => dd.classList.toggle('open'));
+        menu.querySelectorAll('.size-item').forEach((item) => {
+          item.addEventListener('click', () => {
+            toggle.innerHTML = `
+                    <span class="selected-value">${item.textContent}</span>
+                    <span class="arrow-icon">
+                    <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 2L8 8L14 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+                    </svg>
+                    </span>
+                    `;
+            dd.classList.remove('open');
+            selections['option' + sizeIndex] = item.dataset.value;
+            updateVariant();
+          });
+        });
+
+        // close when clicking outside this dropdown
+        document.addEventListener('click', (e) => {
+          if (!dd.contains(e.target)) dd.classList.remove('open');
+        });
+      }
+
+      function updateVariant() {
+        // Find variant whose option1/2/3 exactly match selected values
+        const match = variants.find((v) => {
+          return Object.keys(selections).every((k) => v[k] === selections[k]);
+        });
+
+        if (match && idField) {
+          idField.value = String(match.id);
+        }
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Grid with Popup",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "Heading",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_block",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select product"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Product Grid Popup",
+      "blocks": [
+        { "type": "product_block" },
+        { "type": "product_block" },
+        { "type": "product_block" },
+        { "type": "product_block" },
+        { "type": "product_block" },
+        { "type": "product_block" }
+      ]
+    }
+  ]
+}
+{% endschema %}
